@@ -27,11 +27,8 @@ public class Main {
             return;
         }
         for(int i =0; i<N; i++){
-            if(isUsed[i]=false)
-                isUsed[i]=true;
                 arr[idx]=i+1;
                 backTracking(idx+1);
-                isUsed[i]=false;
             }
         }
     }
