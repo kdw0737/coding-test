@@ -20,7 +20,7 @@ public class Main {
 
     public static long BinarySearch(int[] arr) {
         long left =0;
-        long right =M;
+        long right =arr[arr.length-1];
         long mid;
         long max =0;
         if(sum<=M)
