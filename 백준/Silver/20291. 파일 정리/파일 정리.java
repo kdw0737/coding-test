@@ -12,11 +12,11 @@ public class Main {
             String type = st.nextToken();
             map.put(type, map.getOrDefault(type,0)+1);
         }
-        List<String> list = new ArrayList<>(map.keySet());
-        Collections.sort(list,(o1,o2)->o1.compareTo(o2));
+        List<String> keyList = new ArrayList<>(map.keySet());
+        Collections.sort(keyList);
         StringBuilder sb = new StringBuilder();
-        for(int i =0; i<list.size(); i++){
-            sb.append(list.get(i)).append(" ").append(map.get(list.get(i))).append("\n");
+        for(String key : keyList){
+            sb.append(key+" "+map.get(key)).append("\n");
         }
         System.out.println(sb);
     }
