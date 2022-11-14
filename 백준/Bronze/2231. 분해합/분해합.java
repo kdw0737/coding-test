@@ -1,22 +1,24 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int tmp = 0;
-        for(int i=1; i<N; i++){
-            int num = N-i;
-            int sum = 0;
-
-            while(num!=0){
-                sum+=num%10;
-                num/=10;
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(bf.readLine());
+        boolean check = false;
+        for(int i =1; i<N ; i++){
+            int sum = i;
+            int tmp =i;
+            while(tmp>0){
+                sum+=tmp%10;
+                tmp/=10;
             }
-            if(sum+(N-i)==N){
-                tmp=N-i;
+            if(sum==N) {
+                check = true;
+                System.out.println(i);
+                break;
             }
         }
-        System.out.println(tmp);
+        if(!check)
+            System.out.println(0);
     }
 }
