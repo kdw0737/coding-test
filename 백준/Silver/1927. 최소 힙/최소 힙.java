@@ -6,16 +6,18 @@ public class Main {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(bf.readLine());
         PriorityQueue<Integer> priorQue = new PriorityQueue<>();
+        StringBuilder sb = new StringBuilder();
         for(int i =0; i<N; i++){
             int input = Integer.parseInt(bf.readLine());
             if(input==0){
                 if(priorQue.isEmpty())
-                    System.out.println(0);
+                    sb.append(0).append('\n');
                 else
-                    System.out.println(priorQue.poll());
+                    sb.append(priorQue.poll()).append('\n');
             }
             else
                 priorQue.offer(input);
         }
+        System.out.println(sb);
     }
 }
