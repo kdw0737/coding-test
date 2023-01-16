@@ -2,28 +2,30 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int k = Integer.parseInt(st.nextToken());
-        Stack<Integer> stack = new Stack<>();
-        int count = 0;
-        int[] arr = new int[n];
-        StringBuilder sb = new StringBuilder();
-        String[] str = br.readLine().split("");
-        for (int i = 0; i < str.length; i++) {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
+        int answerSize = N-K;
+        String[] str = bf.readLine().split("");
+        Deque<Integer> deque = new ArrayDeque<>();
+        int deleteCount = 0;
+        int[] arr = new int[str.length];
+        for (int i = 0; i < arr.length; i++) {
             arr[i] = Integer.parseInt(str[i]);
         }
         for (int i = 0; i < arr.length; i++) {
-            while (count < k && !stack.isEmpty() && stack.peek() < arr[i]) {
-                stack.pop();
-                count++;
+            while ( K > 0 && !deque.isEmpty() && deque.peekLast() < arr[i]) {
+                deque.pollLast();
+                K--;
             }
-            stack.push(arr[i]);
+            deque.addLast(arr[i]);
         }
-        for (int i = 0; i < n - k; i++) {
-            System.out.print(stack.elementAt(i));
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < answerSize; i++) {
+            sb.append(deque.pollFirst());
         }
+        System.out.println(sb);
     }
 }
