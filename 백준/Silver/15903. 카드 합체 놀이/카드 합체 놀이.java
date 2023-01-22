@@ -7,20 +7,19 @@ public class Main {
         StringTokenizer st = new StringTokenizer(bf.readLine());
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
-        long[] arr = new long[N];
+        PriorityQueue<Long> pq = new PriorityQueue<>();
         st = new StringTokenizer(bf.readLine());
         for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            pq.offer(Long.valueOf(st.nextToken()));
         }
         for (int i = 0; i < M; i++) {
-            Arrays.sort(arr);
-            long tmp = arr[0] + arr[1];
-            arr[0] = tmp;
-            arr[1] = tmp;
+            long tmp = pq.poll() + pq.poll();
+            pq.offer(tmp);
+            pq.offer(tmp);
         }
-        long sum = 0;
-        for (long n : arr) {
-            sum+=n;
+        long sum =0;
+        while (!pq.isEmpty()) {
+            sum+=pq.poll();
         }
         System.out.println(sum);
     }
