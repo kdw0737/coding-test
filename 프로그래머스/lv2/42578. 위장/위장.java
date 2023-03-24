@@ -1,7 +1,7 @@
 import java.util.*;
 class Solution {
     public int solution(String[][] clothes) {
-        HashMap<String,Integer> map = new HashMap<>();
+        Map<String,Integer> map = new HashMap<>();
         for(String[] arr : clothes){
             map.put(arr[1],map.getOrDefault(arr[1],0)+1);
         }
