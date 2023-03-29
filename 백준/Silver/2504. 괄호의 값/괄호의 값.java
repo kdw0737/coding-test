@@ -10,16 +10,11 @@ public class Main {
             return;
         }
         Stack<String> stack = new Stack<>();
-        boolean flag = true;
         for (String str : arr) {
             if (str.equals("(") || str.equals("[")) {
                 stack.push(str);
             } else if (str.equals(")")) {
                 int tmp = 0;
-                if (stack.isEmpty()) {
-                    flag = false;
-                    break;
-                }
                 while (!stack.isEmpty() && !stack.peek().equals("(")) {
                     if (stack.peek().equals("[")) {
                         System.out.println(0);
@@ -27,20 +22,16 @@ public class Main {
                     }
                     tmp += Integer.parseInt(stack.pop());
                 }
-                if (!flag || stack.isEmpty()) {
+                if (stack.isEmpty()) {
                     break;
                 }
                 stack.pop();
                 if (tmp == 0) {
-                    tmp =1;
+                    tmp = 1;
                 }
                 stack.push(String.valueOf(2 * tmp));
             } else {
                 int tmp = 0;
-                if (stack.isEmpty()) {
-                    flag = false;
-                    break;
-                }
                 while (!stack.isEmpty() && !stack.peek().equals("[")) {
                     if (stack.peek().equals("(")) {
                         System.out.println(0);
@@ -48,29 +39,26 @@ public class Main {
                     }
                     tmp += Integer.parseInt(stack.pop());
                 }
-                if (!flag || stack.isEmpty()) {
+                if (stack.isEmpty()) {
                     break;
                 }
                 stack.pop();
                 if (tmp == 0) {
-                    tmp =1;
+                    tmp = 1;
                 }
                 stack.push(String.valueOf(3 * tmp));
             }
         }
         int result = 0;
-        if (!flag) {
-            System.out.println(0);
-        } else {
-            while (!stack.isEmpty()) {
-                if (stack.contains("(") || stack.contains("[")) {
-                    System.out.println(0);
-                    return;
-                }else {
-                    result += Integer.parseInt(stack.pop());
-                }
+        while (!stack.isEmpty()) {
+            if (stack.contains("(") || stack.contains("[")) {
+                System.out.println(0);
+                return;
+            } else {
+                result += Integer.parseInt(stack.pop());
             }
-            System.out.println(result);
         }
+        System.out.println(result);
+
     }
 }
