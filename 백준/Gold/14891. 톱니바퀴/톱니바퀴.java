@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int[][] gear = new int[4][8];
-    static int[] dir;
+    static int[][] gear = new int[4][8]; //톱니바퀴 상태 저장 
+    static int[] dir; // 각 톱니바퀴의 방향정보 저장
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         for (int i = 0; i < 4; i++) {
@@ -34,7 +34,8 @@ public class Main {
                 break;
             }
         }
-
+        
+        //gearNum 기준 우측에있는 톱니바퀴 방향성 검사 
         for (int i = gearNum + 1; i < 4; i++) {
             if (gear[i][6] != gear[i - 1][2]) {
                 dir[i] = -dir[i - 1];
