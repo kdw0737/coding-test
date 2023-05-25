@@ -9,7 +9,7 @@ public class Main {
         long len = Integer.parseInt(st.nextToken());
         int[] arr = new int[N];
         st = new StringTokenizer(bf.readLine());
-        long lower = 1;
+        long lower = 0;
         long upper = 0;
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
