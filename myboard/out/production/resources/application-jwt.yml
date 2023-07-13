@@ -1,0 +1,10 @@
+jwt:
+  secret:  47b5e643fa20aedc353b6401029823be7f795079d12c998ea05ef2c50271bd083a9dd36c84fd7fa75aee950749d803f32a0f6691ea43f515547a0116d6ec81c7
+
+  access:
+    expiration: 80
+    header: Authorization
+
+  refresh:
+    expiration: 90
+    header: Authorization-refresh
