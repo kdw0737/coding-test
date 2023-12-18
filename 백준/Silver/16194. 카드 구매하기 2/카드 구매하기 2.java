@@ -11,12 +11,12 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         int[] dp = new int[N + 1];
-        Arrays.fill(dp, Integer.MAX_VALUE);
         dp[1] = arr[1];
         dp[2] = Math.min(arr[1] * 2, arr[2]);
         for (int i = 3; i < N + 1; i++) {
+            dp[i] = arr[i];
             for (int j = 1; j < i; j++) {
-                dp[i] = Math.min(Math.min(arr[i], dp[j] + dp[i - j]), dp[i]);
+                dp[i] = Math.min(dp[i], dp[j] + dp[i - j]);
             }
         }
         System.out.println(dp[N]);
