@@ -7,6 +7,9 @@ import java.util.StringTokenizer;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
+		// 같은 종류 토핑 2개 이상 x
+		// 토핑을 선택 안해도됨
+		// 가격 : 도우 + 토핑 * 종류 수
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(bf.readLine());
 
@@ -20,21 +23,16 @@ public class Main {
 			toppings[i] = Integer.parseInt(bf.readLine());
 		}
 
-		// 칼로리 높은 순 정렬
 		Arrays.sort(toppings, Collections.reverseOrder());
 
-		int totalPrice = dPrice;
-		int totalCalories = dCalories;
+		int weight = dCalories;
+		int price = dPrice;
+		int result = weight / price;
 
-		int result = totalCalories / totalPrice;
-
-		for (int i = 0; i < N; i++) {
-			totalPrice += tPrice;
-			totalCalories += toppings[i];
-			int now = totalCalories / totalPrice;
-			if (now > result) {
-				result = now;
-			}
+		for (Integer topping : toppings) {
+			price += tPrice;
+			weight += topping;
+			result = Math.max(result, weight / price);
 		}
 
 		System.out.println(result);
