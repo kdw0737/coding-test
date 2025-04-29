@@ -56,8 +56,6 @@ public class Main {
 
 				if (newY <= 0) newY += N;
 				if (newX <= 0) newX += N;
-				if (newY > N) newY = (newY - 1) % N + 1;
-				if (newX > N) newX = (newX - 1) % N + 1;
 
 				// 2. 구름에서 비가 내려 물의 양이 1 증가한다.
 				arr[newY][newX] += 1;
