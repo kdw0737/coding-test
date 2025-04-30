@@ -71,24 +71,16 @@ public class Main {
 
 		// 2. 먼지 순환
 		int upper = purifier.get(0)[0]; // 위쪽 청정기 행 위치
-		// 위쪽 ←
 		for (int i = upper - 1; i > 0; i--) spread[i][0] = spread[i - 1][0];
-		// 위쪽 ↑
 		for (int i = 0; i < x - 1; i++) spread[0][i] = spread[0][i + 1];
-		// 위쪽 →
 		for (int i = 0; i < upper; i++) spread[i][x - 1] = spread[i + 1][x - 1];
-		// 위쪽 ↓
 		for (int i = x - 1; i > 1; i--) spread[upper][i] = spread[upper][i - 1];
 		spread[upper][1] = 0; // 청정기로 들어간 먼지 제거
 
 		int lower = purifier.get(1)[0]; // 아래쪽 청정기 행 위치
-		// 아래쪽 ←
 		for (int i = lower + 1; i < y - 1; i++) spread[i][0] = spread[i + 1][0];
-		// 아래쪽 ↓
 		for (int i = 0; i < x - 1; i++) spread[y - 1][i] = spread[y - 1][i + 1];
-		// 아래쪽 →
 		for (int i = y - 1; i > lower; i--) spread[i][x - 1] = spread[i - 1][x - 1];
-		// 아래쪽 ↑
 		for (int i = x - 1; i > 1; i--) spread[lower][i] = spread[lower][i - 1];
 		spread[lower][1] = 0; // 청정기로 들어간 먼지 제거
 
