@@ -1,5 +1,4 @@
 import java.util.*;
-
 class Solution {
     static int y, x;
     static int[][] delta = {{0,1}, {0,-1}, {1,0}, {-1,0}};
@@ -8,17 +7,15 @@ class Solution {
     static boolean flag;
 
     public int[] solution(String[][] places) {
-        // 거리두기 지키면 1, 안 지키면 0
         int[] result = new int[places.length];
         int idx = 0;
 
         for (String[] tmp : places) {
             y = tmp.length; 
             x = tmp[0].length();
-
-            // 맵 세팅 및 사람 좌표 수집
-            List<int[]> people = new ArrayList<>();
             arr = new char[y][x];
+
+            List<int[]> people = new ArrayList<>();
             for (int i = 0; i < y; i++) {
                 for (int j = 0; j < x; j++) {
                     arr[i][j] = tmp[i].charAt(j);
@@ -26,12 +23,14 @@ class Solution {
                 }
             }
 
-            // 각 사람 좌표에서 DFS로 거리 2 이내 위반 여부 검사
-            flag = true; // 전체 장소의 기본 상태: 준수(true)
-            for (int[] pos : people) {
-                visited = new boolean[y][x];      // 시작점마다 방문 배열 초기화
-                dfs(pos[0], pos[1], 0);
-                if (!flag) break;                 // 위반 발견 시 더 볼 필요 없음
+            flag = true; 
+
+            // 사람마다 독립 BFS
+            for (int[] p : people) {
+                if (!bfsOne(p[0], p[1])) { 
+                    flag = false;
+                    break;
+                }
             }
 
             result[idx++] = flag ? 1 : 0;
@@ -39,34 +38,38 @@ class Solution {
         return result;
     }
 
-    public static void dfs(int cy, int cx, int dist) {
-        if (!flag) return;            // 이미 위반이면 불단락
-        if (dist == 2) return;        // 거리 2에서 더 확장 금지 (맨해튼 2까지만 검사)
+    public static boolean bfsOne(int sy, int sx) {
+        visited = new boolean[y][x];
+        ArrayDeque<int[]> q = new ArrayDeque<>();
+        q.offer(new int[]{sy, sx, 0});
+        visited[sy][sx] = true;
 
-        visited[cy][cx] = true;
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            int cy = cur[0], cx = cur[1], d = cur[2];
 
-        for (int i = 0; i < 4; i++) {
-            int ny = cy + delta[i][0];
-            int nx = cx + delta[i][1];
+            if (d == 2) continue; 
 
-            // 범위 밖/재방문 금지
-            if (!isIn(ny, nx) || visited[ny][nx]) continue;
+            for (int i = 0; i < 4; i++) {
+                int ny = cy + delta[i][0];
+                int nx = cx + delta[i][1];
+                
+                if (!isIn(ny, nx) || visited[ny][nx]) continue;
+                if (arr[ny][nx] == 'X') continue; 
 
-            // 파티션이면 진행 불가
-            if (arr[ny][nx] == 'X') continue;
+                int nd = d + 1;
 
-            int nd = dist + 1;
+                if (arr[ny][nx] == 'P') {
+                    return false;
+                }
 
-            // 다음 칸이 사람이라면 거리 1~2 내 위반
-            if (arr[ny][nx] == 'P') {
-                flag = false;
-                return;
+                if (nd <= 2) {
+                    visited[ny][nx] = true;   
+                    q.offer(new int[]{ny, nx, nd});
+                }
             }
-
-            // 빈칸이면 계속 탐색 (nd <= 2까지만)
-            dfs(ny, nx, nd);
-            if (!flag) return;        // 불단락
         }
+        return true; 
     }
 
     public static boolean isIn(int cy, int cx) {
